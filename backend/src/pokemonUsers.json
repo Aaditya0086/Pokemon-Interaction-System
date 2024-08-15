@@ -1,0 +1,95 @@
+[
+  {},
+  {},
+  {},
+  {},
+  {
+    "id": "1723060767376",
+    "ownerName": "adi",
+    "pokemonName": "butterfree",
+    "pokemonAbility": "compound-eyes",
+    "initialPositionX": "21",
+    "initialPositionY": "66",
+    "speed": "11",
+    "direction": "south"
+  },
+  {},
+  {
+    "id": "1723114122708",
+    "ownerName": "aa",
+    "pokemonName": "metapod",
+    "pokemonAbility": "shed-skin",
+    "initialPositionX": 0,
+    "initialPositionY": 0,
+    "speed": "9",
+    "direction": "north"
+  },
+  {
+    "id": "1723114157596",
+    "ownerName": "aaa",
+    "pokemonName": "venusaur",
+    "pokemonAbility": "overgrow",
+    "initialPositionX": 0,
+    "initialPositionY": 0,
+    "speed": "9",
+    "direction": "north"
+  },
+  {
+    "id": {
+      "id": "1723114420394",
+      "ownerName": "aa",
+      "pokemonName": "venusaur",
+      "pokemonAbility": "Please Select a Pokemon Ability",
+      "initialPositionX": 0,
+      "initialPositionY": 0,
+      "speed": "9",
+      "direction": "north"
+    }
+  },
+  {
+    "user": {
+      "id": "1723114525747",
+      "ownerName": "aa",
+      "pokemonName": "venusaur",
+      "pokemonAbility": "Please Select a Pokemon Ability",
+      "initialPositionX": 0,
+      "initialPositionY": 0,
+      "speed": "9",
+      "direction": "north"
+    }
+  },
+  {
+    "user": {
+      "id": "1723114868717",
+      "ownerName": "Aaditya",
+      "pokemonName": "pikachu",
+      "pokemonAbility": "lightning-rod",
+      "initialPositionX": "15",
+      "initialPositionY": "10",
+      "speed": "45",
+      "direction": "east"
+    }
+  },
+  {
+    "user": {
+      "id": "1723114912727",
+      "ownerName": "",
+      "pokemonName": "",
+      "pokemonAbility": "",
+      "initialPositionX": 0,
+      "initialPositionY": 0,
+      "speed": "",
+      "direction": ""
+    }
+  },
+  {
+    "id": "1723140989131",
+    "ownerName": "Aaditya",
+    "pokemonName": "pikachu",
+    "pokemonAbility": "lightning-rod",
+    "initialPositionX": "2",
+    "initialPositionY": "15",
+    "speed": "45",
+    "direction": "north"
+  }
+]
