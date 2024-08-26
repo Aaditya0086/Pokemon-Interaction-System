@@ -3,10 +3,6 @@ import PokemonListingTable from '../components/PokemonListingTable';
 
 const ListOfPokemonUsersPage = () => {
 
-    useEffect(() => {
-        // console.log('hello');
-    })
-
   return (
     <div>
       <h1>List of Pokemon Users</h1>

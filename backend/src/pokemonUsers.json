@@ -1,95 +1,101 @@
 [
-  {},
-  {},
-  {},
-  {},
   {
-    "id": "1723060767376",
-    "ownerName": "adi",
-    "pokemonName": "butterfree",
-    "pokemonAbility": "compound-eyes",
-    "initialPositionX": "21",
-    "initialPositionY": "66",
-    "speed": "11",
-    "direction": "south"
-  },
-  {},
-  {
-    "id": "1723114122708",
-    "ownerName": "aa",
-    "pokemonName": "metapod",
-    "pokemonAbility": "shed-skin",
-    "initialPositionX": 0,
-    "initialPositionY": 0,
-    "speed": "9",
-    "direction": "north"
+    "id": "1723737789885",
+    "ownerName": "Vishu",
+    "noOfPokemon": "1",
+    "pokemons": [
+      {
+        "pokemonName": "bulbasaur",
+        "pokemonAbility": "overgrow",
+        "initialPositionX": "11",
+        "initialPositionY": "21",
+        "speed": "31",
+        "direction": "east"
+      }
+    ]
   },
   {
-    "id": "1723114157596",
-    "ownerName": "aaa",
-    "pokemonName": "venusaur",
-    "pokemonAbility": "overgrow",
-    "initialPositionX": 0,
-    "initialPositionY": 0,
-    "speed": "9",
-    "direction": "north"
-  },
-  {
-    "id": {
-      "id": "1723114420394",
-      "ownerName": "aa",
-      "pokemonName": "venusaur",
-      "pokemonAbility": "Please Select a Pokemon Ability",
-      "initialPositionX": 0,
-      "initialPositionY": 0,
-      "speed": "9",
-      "direction": "north"
-    }
-  },
-  {
-    "user": {
-      "id": "1723114525747",
-      "ownerName": "aa",
-      "pokemonName": "venusaur",
-      "pokemonAbility": "Please Select a Pokemon Ability",
-      "initialPositionX": 0,
-      "initialPositionY": 0,
-      "speed": "9",
-      "direction": "north"
-    }
-  },
-  {
-    "user": {
-      "id": "1723114868717",
-      "ownerName": "Aaditya",
-      "pokemonName": "pikachu",
-      "pokemonAbility": "lightning-rod",
-      "initialPositionX": "15",
-      "initialPositionY": "10",
-      "speed": "45",
-      "direction": "east"
-    }
-  },
-  {
-    "user": {
-      "id": "1723114912727",
-      "ownerName": "",
-      "pokemonName": "",
-      "pokemonAbility": "",
-      "initialPositionX": 0,
-      "initialPositionY": 0,
-      "speed": "",
-      "direction": ""
-    }
-  },
-  {
-    "id": "1723140989131",
+    "id": "1723737853045",
     "ownerName": "Aaditya",
-    "pokemonName": "pikachu",
-    "pokemonAbility": "lightning-rod",
-    "initialPositionX": "2",
-    "initialPositionY": "15",
-    "speed": "45",
-    "direction": "north"
+    "noOfPokemon": "2",
+    "pokemons": [
+      {
+        "pokemonName": "wigglytuff",
+        "pokemonAbility": "cute-charm",
+        "initialPositionX": "2",
+        "initialPositionY": "2",
+        "speed": "9",
+        "direction": "north"
+      },
+      {
+        "pokemonName": "squirtle",
+        "pokemonAbility": "rain-dish",
+        "initialPositionX": "4",
+        "initialPositionY": "5",
+        "speed": "9",
+        "direction": "south"
+      }
+    ]
+  },
+  {
+    "id": "1723900488446",
+    "ownerName": "adi",
+    "noOfPokemon": "1",
+    "pokemons": [
+      {
+        "pokemonName": "eevee",
+        "pokemonAbility": "adaptability",
+        "initialPositionX": "10",
+        "initialPositionY": "2",
+        "speed": "1",
+        "direction": "east"
+      }
+    ]
+  },
+  {
+    "id": "1723901432222",
+    "ownerName": "Paarul",
+    "noOfPokemon": "1",
+    "pokemons": [
+      {
+        "pokemonName": "clefable",
+        "pokemonAbility": "magic-guard",
+        "initialPositionX": "50",
+        "initialPositionY": "10",
+        "speed": "2",
+        "direction": "north"
+      }
+    ]
+  },
+  {
+    "id": "1723901634034",
+    "ownerName": "xavier",
+    "noOfPokemon": "3",
+    "pokemons": [
+      {
+        "pokemonName": "meowth",
+        "pokemonAbility": "technician",
+        "initialPositionX": "10",
+        "initialPositionY": "21",
+        "speed": "56",
+        "direction": "west"
+      },
+      {
+        "pokemonName": "wartortle",
+        "pokemonAbility": "torrent",
+        "initialPositionX": "80",
+        "initialPositionY": "109",
+        "speed": "10",
+        "direction": "north"
+      },
+      {
+        "pokemonName": "drowzee",
+        "pokemonAbility": "insomnia",
+        "initialPositionX": "20",
+        "initialPositionY": "2",
+        "speed": "3",
+        "direction": "east"
+      }
+    ]
   }
 ]

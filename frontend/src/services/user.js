@@ -23,11 +23,19 @@ export const createUser = (user) => {
     })
 }
 
-export const updateUser = (id, user) => {
+export const updateUser = (id, noOfPokemon, pokemons) => {
     return axios({
         method: 'put',
         url: BASE_URL + "/user/" + id,
-        data: user,
+        data: {pokemons, noOfPokemon},
+    })
+}
+
+export const addToUser = (id, noOfPokemon, pokemons) => {
+    return axios({
+        method: 'post',
+        url: BASE_URL + "/user/" + id,
+        data: {pokemons, noOfPokemon},
     })
 }
 

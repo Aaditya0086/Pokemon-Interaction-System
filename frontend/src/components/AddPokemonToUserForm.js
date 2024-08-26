@@ -1,17 +1,14 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
-  getPokemonList,
   getPokemonDetails,
-  getPokemonListOnSearch,
   getPokemonListLazy,
 } from "../services/pokemon";
-import { createUser } from "../services/user";
+import { addToUser, getUser } from "../services/user";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 import AsyncSelect from "react-select/async";
-import PokemonSelectLazyScroll from "./PokemonSelectLazyScroll";
 
-const CreatePokemonUserForm = () => {
+const AddPokemonToUserForm = ({ id }) => {
   const [pokemonList, setPokemonList] = useState([]);
   const [abilities, setAbilities] = useState([]);
 
@@ -49,16 +46,23 @@ const CreatePokemonUserForm = () => {
     }
   });
 
+  const fetchUser = useCallback(async (id) => {
+    try {
+      getUser(id).then((response) => {
+        console.log(response);
+        setOwnerName(response.data.ownerName);
+        setNoOfPokemon(Number(response.data.noOfPokemon + 1));
+      });
+    } catch (err) {}
+  });
+
   useEffect(() => {
     if (pokemonName) {
-      // console.log(pokemonName);
       fetchPokemonAbility(pokemonName)
         .then((response) => {
-          // console.log(response);
           const abilities = response.data.abilities.map(
             (ability) => ability.ability.name
           );
-          // console.log(abilities);
           setAbilities(abilities);
           if (abilities.length === 1) {
             setPokemonAbility(abilities[0]);
@@ -72,33 +76,27 @@ const CreatePokemonUserForm = () => {
 
   useEffect(() => {
     fetchPokemonList(limit, offset);
+    fetchUser(id);
   }, []);
 
-  const handleCreatePokemonUser = (e) => {
+  const handleAddPokemon = (e) => {
     e.preventDefault();
-    const newUser = {
-      id: Date.now().toString(),
-      ownerName,
-      noOfPokemon,
-      pokemons: [
-        {
-          pokemonName,
-          pokemonAbility,
-          initialPositionX,
-          initialPositionY,
-          speed,
-          direction,
-        },
-      ],
+    const pokemons = {
+      pokemonName,
+      pokemonAbility,
+      initialPositionX,
+      initialPositionY,
+      speed,
+      direction,
     };
 
-    createUser(newUser)
+    addToUser(id, noOfPokemon, pokemons)
       .then((response) => {
-        console.log("User with Pokémon added:", response.data);
+        console.log("Pokémon added to user:", response.data);
         navigate("/list");
       })
       .catch((error) => {
-        console.error("Error adding user with Pokémon:", error);
+        console.error("Error adding Pokémon to user:", error);
       });
   };
 
@@ -112,7 +110,6 @@ const CreatePokemonUserForm = () => {
   }));
 
   const handlePokemonNameScroll = useCallback(async () => {
-    // alert('bottom');
     if (offset < 1302) {
       setLoading(true);
       setOffset((prevOffset) => {
@@ -136,24 +133,8 @@ const CreatePokemonUserForm = () => {
           onChange={(e) => setOwnerName(e.target.value)}
         />
 
-        {/* version-1 */}
-        {/* <select
-          name="pokemonName"
-          value={pokemonName}
-          onChange={(e) => setPokemonName(e.target.value)}
-        >
-          <option value="">Select Pokémon Name</option>
-          {pokemonList.map((pokemon, index) => (
-            <option key={index} value={pokemon.name}>
-              {pokemon.name}
-            </option>
-          ))}
-        </select> */}
-
-        {/* version-2 */}
         {/* <div style={{ width: "300px", color: 'black' }}>
           <Select
-            // ref={selectRef}
             name="pokemonName"
             onChange={handlePokemonNameChange}
             options={pokemonOptions}
@@ -162,9 +143,7 @@ const CreatePokemonUserForm = () => {
             isLoading={loading}
           ></Select>
         </div> */}
-
-        {/* version-3 */}
-        <PokemonSelectLazyScroll setPokemonName={setPokemonName} setOffset={setOffset} offset={offset} loading={loading} setLoading={setLoading} fetchPokemonList={fetchPokemonList} pokemonList={pokemonList} limit={limit} />
+        
 
         <select
           name="pokemonAbility"
@@ -214,10 +193,10 @@ const CreatePokemonUserForm = () => {
           <option value="east">East</option>
           <option value="west">West</option>
         </select>
-        <button onClick={handleCreatePokemonUser}>Create Pokemon User</button>
+        <button onClick={handleAddPokemon}>Add Pokemon</button>
       </form>
     </div>
   );
 };
 
-export default CreatePokemonUserForm;
+export default AddPokemonToUserForm;

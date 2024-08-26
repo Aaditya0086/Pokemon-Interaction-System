@@ -1,7 +1,7 @@
 import React from 'react';
 import CreatePokemonUserForm from '../components/CreatePokemonUserForm';
 
-const AddPokemonUserPage = () => {
+const CreatePokemonUserPage = () => {
 
   return (
     <div>
@@ -11,4 +11,4 @@ const AddPokemonUserPage = () => {
   );
 };
 
-export default AddPokemonUserPage;
+export default CreatePokemonUserPage;

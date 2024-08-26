@@ -4,7 +4,7 @@ import { POKE_BASE_URL } from '../constants/index';
 export const getPokemonList = () => {
     return axios({
         method: 'get',
-        url: POKE_BASE_URL + "/pokemon" + "?limit=" + 1000,
+        url: POKE_BASE_URL + "/pokemon" + "?limit=" + 1302,
     })
 } 
 

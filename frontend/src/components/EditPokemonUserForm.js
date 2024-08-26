@@ -3,20 +3,22 @@ import { useState, useEffect, useCallback } from "react";
 import { getPokemonList, getPokemonDetails } from "../services/pokemon";
 import { getUser, updateUser } from "../services/user";
 import { useNavigate } from "react-router-dom";
+import PokemonSelect from "./PokemonSelect";
 
 const EditPokemonUserForm = ({ id }) => {
   const [pokemonList, setPokemonList] = useState([]);
-  const [abilities, setAbilities] = useState([]);
+  const [abilityList, setAbilityList] = useState([]);
 
   const [ownerName, setOwnerName] = useState("");
   const [pokemonName, setPokemonName] = useState("");
   const [pokemonAbility, setPokemonAbility] = useState("");
   const [initialPositionX, setInitialPositionX] = useState(0);
   const [initialPositionY, setInitialPositionY] = useState(0);
-  const [speed, setSpeed] = useState("");
+  const [speed, setSpeed] = useState(0);
   const [direction, setDirection] = useState("");
   const [fetchedPokemonAbility, setFetchedPokemonAbility] = useState("");
   const [firstUserGet, setFirstUserGet] = useState(true);
+  const [noOfPokemon, setNoOfPokemon] = useState(0);
 
   const navigate = useNavigate();
 
@@ -45,12 +47,13 @@ const EditPokemonUserForm = ({ id }) => {
         // debugger
         console.log(response);
         setOwnerName(response.data.ownerName);
-        setPokemonName(response.data.pokemonName);
-        setFetchedPokemonAbility(response.data.pokemonAbility); // setPokemonAbility(response.data.pokemonAbility);
-        setInitialPositionX(response.data.initialPositionX);
-        setInitialPositionY(response.data.initialPositionY);
-        setSpeed(response.data.speed);
-        setDirection(response.data.direction);
+        setPokemonName(response.data.pokemons[0].pokemonName);
+        setFetchedPokemonAbility(response.data.pokemons[0].pokemonAbility);
+        setInitialPositionX(Number(response.data.pokemons[0].initialPositionX));
+        setInitialPositionY(Number(response.data.pokemons[0].initialPositionY));
+        setSpeed(Number(response.data.pokemons[0].speed));
+        setDirection(response.data.pokemons[0].direction);
+        setNoOfPokemon(Number(response.data.noOfPokemon));
       });
     } catch (err) {}
   });
@@ -67,7 +70,7 @@ const EditPokemonUserForm = ({ id }) => {
             (ability) => ability.ability.name
           );
           console.log(abilities);
-          setAbilities(abilities);
+          setAbilityList(abilities);
           if (abilities.length === 1) {
             setPokemonAbility(abilities[0]);
           } else {
@@ -90,9 +93,7 @@ const EditPokemonUserForm = ({ id }) => {
 
   const handleEditPokemon = (e) => {
     e.preventDefault();
-    const newUser = {
-      id: id,
-      ownerName,
+    const pokemons = {
       pokemonName,
       pokemonAbility,
       initialPositionX,
@@ -101,7 +102,7 @@ const EditPokemonUserForm = ({ id }) => {
       direction,
     };
 
-    updateUser(id, newUser)
+    updateUser(id, noOfPokemon, pokemons)
       .then((response) => {
         console.log("User with Pokémon added:", response.data);
         navigate("/list");
@@ -122,7 +123,7 @@ const EditPokemonUserForm = ({ id }) => {
           onChange={(e) => setOwnerName(e.target.value)}
         />
 
-        <select
+        {/* <select
           name="pokemonName"
           value={pokemonName}
           onChange={(e) => setPokemonName(e.target.value)}
@@ -133,7 +134,8 @@ const EditPokemonUserForm = ({ id }) => {
               {pokemon.name}
             </option>
           ))}
-        </select>
+        </select> */}
+        <PokemonSelect pokemonName={pokemonName} setPokemonName={setPokemonName} pokemonList={pokemonList} />
 
         <select
           name="pokemonAbility"
@@ -141,7 +143,7 @@ const EditPokemonUserForm = ({ id }) => {
           onChange={(e) => setPokemonAbility(e.target.value)}
         >
           <option value="">Select Pokémon Ability</option>
-          {abilities.map((ability, index) => (
+          {abilityList.map((ability, index) => (
             <option key={index} value={ability}>
               {ability}
             </option>
@@ -149,7 +151,7 @@ const EditPokemonUserForm = ({ id }) => {
         </select>
 
         <input
-          type="text"
+          type="number"
           name="initialPositionX"
           placeholder="Initial Position X"
           value={initialPositionX}
@@ -157,7 +159,7 @@ const EditPokemonUserForm = ({ id }) => {
         />
 
         <input
-          type="text"
+          type="number"
           name="initialPositionY"
           placeholder="Initial Position Y"
           value={initialPositionY}
@@ -165,7 +167,7 @@ const EditPokemonUserForm = ({ id }) => {
         />
 
         <input
-          type="text"
+          type="number"
           name="speed"
           placeholder="Speed (m/s)"
           value={speed}
