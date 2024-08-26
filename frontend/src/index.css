@@ -5,6 +5,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: white;
+  background-color: rgb(24, 24, 27); 
+  /* zinc-900 of tailwind for perfect dark mode color */
 }
 
 code {

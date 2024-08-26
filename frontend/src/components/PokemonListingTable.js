@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState, useCallback } from "react";
-import { deleteAllUsers, deleteUser, getUsers, updateUser } from "../services/user";
-import { Navigate, useNavigate } from "react-router-dom";
+import { deleteAllUsers, deleteUser, getUsers } from "../services/user";
+import { useNavigate } from "react-router-dom";
 
 const PokemonListingTable = () => {
   const navigate = useNavigate();
@@ -35,15 +35,6 @@ const PokemonListingTable = () => {
     }
   })
 
-  const editPokemonUser = useCallback(async (id, user) => {
-    try {
-      const response = await updateUser(id, user);
-      return response;
-    } catch (err) {
-      console.error('Failed to Update Pokemon User', err);
-    }
-  })
-
   useEffect(() => {
     fetchPokemonUsersList()
       .then((response) => {
@@ -67,55 +58,46 @@ const PokemonListingTable = () => {
       .then ((response) => {
         setFlag(flag+1);
       })
-    
-    
-    // Implement the delete functionality
   };
 
-  // Functions for handling actions (to be implemented)
   const handleAddPokemon = (id) => {
-    console.log("Adding Pokémon for user-id:", id);
-    // Implement the add functionality
+    console.log("Adding Pokémon for user with id:", id);
+    navigate('/add', {state: {id: id}});
   };
 
   const handleEditUser = (id) => {
     console.log("Editing user with id:", id);
     navigate('/edit', {state: {id: id}});
-    // editPokemonUser(id, user)
-      // .then((response) => {
-
-      // })
-    // Implement the edit functionality
   };
 
   return (
-    <div>
+    <div style={{margin: '40px'}}>
       <div>
         <button onClick={handleDeleteAllUsers} type="button">Delete All</button>
-        <button type="button">Button</button>
+        <button style={{marginLeft: '10px'}} onClick={() => {navigate("/create");}} type="button">Add User</button>
+        <button style={{margin: '10px'}} onClick={() => {navigate("/");}} type="button">Fun Area</button>
       </div>
       <br />
       <div>
-        {/* <h2>List of Pokémon Users</h2> */}
-        <table>
+        <table style={{textAlign: 'left'}}>
           <thead>
             <tr>
-              <th>Pokemon Owner Name</th>
-              <th>Pokemon Name</th>
-              <th>Pokemon Ability</th>
-              <th>No. of Pokemon</th>
-              <th>Add Pokemon</th>
-              <th>Edit</th>
-              <th>Delete</th>
+              <th style={{paddingRight: '5px'}}>Pokemon Owner Name</th>
+              <th style={{paddingRight: '5px'}}>Pokemon Name</th>
+              <th style={{paddingRight: '5px'}}>Pokemon Ability</th>
+              <th style={{paddingRight: '5px'}}>No. of Pokemon</th>
+              <th style={{paddingRight: '5px'}}>Add Pokemon</th>
+              <th style={{paddingRight: '5px'}}>Edit</th>
+              <th style={{paddingRight: '5px'}}>Delete</th>
             </tr>
           </thead>
           <tbody>
             {pokemonUsers.map((user, index) => (
               <tr key={index}>
                 <td>{user.ownerName}</td>
-                <td>{user.pokemonName}</td>
-                <td>{user.pokemonAbility}</td>
-                <td>{user.pokemonCount}</td>
+                <td>{user.pokemons[0].pokemonName}</td>
+                <td>{user.pokemons[0].pokemonAbility}</td>
+                <td>{user.noOfPokemon}</td>
                 <td>
                   <button onClick={() => handleAddPokemon(user.id)}>+</button>
                 </td>
