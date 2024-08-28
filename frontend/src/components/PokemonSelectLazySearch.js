@@ -1,9 +1,8 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback } from "react";
 import Select from "react-select";
+// import _ from "lodash"
 
 const PokemonSelectLazySearch = ({ setPokemonName, pokemonList, loading, setLoading, setOffset, fetchPokemonList, offset, limit, pokemonSearch, setPokemonSearch }) => {
-
-    const [input, setInput] = useState('');
 
     const handlePokemonNameScroll = useCallback(async () => {
         if (offset < 1302) {
@@ -18,10 +17,23 @@ const PokemonSelectLazySearch = ({ setPokemonName, pokemonList, loading, setLoad
         }
       });
 
+    //   const debouncedPokemonSearch = useCallback(_.debounce((inputValue) => {
+    //     setPokemonSearch(inputValue);
+    //   }, 300)
+    //   );
+      
+      const debouncedPokemonSearch = (inputValue) => {
+        if (debouncedPokemonSearch.timeoutId) {
+            clearTimeout(debouncedPokemonSearch.timeoutId);
+        }
+
+        debouncedPokemonSearch.timeoutId = setTimeout(() => {
+            setPokemonSearch(inputValue);
+        }, 300);
+      };
+
       const handleInputChange = (inputValue) => {
-        setInput(inputValue);
-        setPokemonSearch(inputValue);
-        console.log(inputValue);
+        debouncedPokemonSearch(inputValue);
       }
 
       const extractActualId = (url) => {
@@ -36,7 +48,7 @@ const PokemonSelectLazySearch = ({ setPokemonName, pokemonList, loading, setLoad
 
     const pokemonOptions = pokemonList.map((pokemon, index) => {
         let url;
-        if (!input) {
+        if (!pokemonSearch) {
             url = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png`;
     
             if (index >= 1025) {
