@@ -123,9 +123,9 @@
       {
         "pokemonName": "scyther",
         "pokemonAbility": "steadfast",
-        "initialPositionX": "85",
-        "initialPositionY": "64",
-        "speed": "48",
+        "initialPositionX": 85,
+        "initialPositionY": 64,
+        "speed": 48,
         "direction": "south"
       },
       {

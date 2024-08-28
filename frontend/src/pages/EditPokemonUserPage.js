@@ -19,7 +19,7 @@ const EditPokemonUserPage = () => {
 
   return (
     <div>
-      <h1>Edit Pokemon User</h1>
+      <h1>Edit User Pokemon</h1>
       {isReady && <EditPokemonUserForm id={location.state.id} />}
     </div>
   );
