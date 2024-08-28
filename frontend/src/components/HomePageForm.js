@@ -299,7 +299,7 @@ const HomePageForm = () => {
               top: `${positionY}px`,
             }}
           >
-            <img src={gif_url} alt={img_url} />
+            <img src={gif_url} alt="Pokemon Annimation" onError={(e) => e.target.src = img_url} />
           </div>
         )}
       </div>
