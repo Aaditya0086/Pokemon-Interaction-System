@@ -15,10 +15,12 @@
 
 import express from "express";
 import user from './users.js';
+import pokemon from "./pokemons.js";
 
 const api = express.Router();
 
 api.use('/user', user);
+api.use('/pokemon', pokemon);
 
 
 export default api;

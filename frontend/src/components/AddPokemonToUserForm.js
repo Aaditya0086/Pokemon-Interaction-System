@@ -2,11 +2,13 @@ import React, { useState, useEffect, useCallback } from "react";
 import {
   getPokemonDetails,
   getPokemonListLazy,
+  getSearchedPokemons,
 } from "../services/pokemon";
 import { addToUser, getUser } from "../services/user";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 import AsyncSelect from "react-select/async";
+import PokemonSelectLazySearch from "./PokemonSelectLazySearch";
 
 const AddPokemonToUserForm = ({ id }) => {
   const [pokemonList, setPokemonList] = useState([]);
@@ -22,6 +24,7 @@ const AddPokemonToUserForm = ({ id }) => {
   const [noOfPokemon, setNoOfPokemon] = useState(1);
   const [offset, setOffset] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [pokemonSearch, setPokemonSearch] = useState("");
 
   const navigate = useNavigate();
 
@@ -30,12 +33,26 @@ const AddPokemonToUserForm = ({ id }) => {
   const fetchPokemonList = useCallback(async (limit, offset) => {
     try {
       const response = await getPokemonListLazy(limit, offset);
-      setPokemonList((prevList) => [...prevList, ...response.data.results]);
+      if (offset === 0) {
+        setPokemonList(response.data.results);
+      }else {
+        setPokemonList((prevList) => [...prevList, ...response.data.results]);
+      }
       setLoading(false);
     } catch (err) {
       console.error("Failed to fetch Pokemon list:", err);
     }
   });
+
+  const fetchPokemonSearch = useCallback(async (pokemonSearch) => {
+    try {
+      const response = await getSearchedPokemons(pokemonSearch);
+      console.log(response.data);
+      setPokemonList(response.data);
+    }catch (err) {
+      console.error("Failed to fetch searched pokemons:", err);
+    }
+  })
 
   const fetchPokemonAbility = useCallback(async (name) => {
     try {
@@ -75,7 +92,15 @@ const AddPokemonToUserForm = ({ id }) => {
   }, [pokemonName]);
 
   useEffect(() => {
-    fetchPokemonList(limit, offset);
+    if (!pokemonSearch) {
+      setOffset(0);
+      fetchPokemonList(limit, offset);
+    }else {
+      fetchPokemonSearch(pokemonSearch);
+    }
+  }, [pokemonSearch]);
+
+  useEffect(() => {
     fetchUser(id);
   }, []);
 
@@ -143,7 +168,9 @@ const AddPokemonToUserForm = ({ id }) => {
             isLoading={loading}
           ></Select>
         </div> */}
-        
+
+        <PokemonSelectLazySearch setPokemonName={setPokemonName} setOffset={setOffset} offset={offset} loading={loading} setLoading={setLoading} fetchPokemonList={fetchPokemonList} pokemonList={pokemonList} limit={limit} fetchPokemonSearch={fetchPokemonSearch} pokemonSearch={pokemonSearch} setPokemonSearch={setPokemonSearch} />
+
 
         <select
           name="pokemonAbility"

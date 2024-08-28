@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { POKE_BASE_URL } from '../constants/index';
+import { BASE_URL, POKE_BASE_URL } from '../constants/index';
 
 export const getPokemonList = () => {
     return axios({
@@ -28,4 +28,10 @@ export const getPokemonDetails = (name) => {
         url: POKE_BASE_URL + "/pokemon/" + name,
     })
 }
-// export const getPokemonDetails = (name) => axios.get(`${POKE_BASE_URL}/pokemon/${name}`);
+
+export const getSearchedPokemons = (search) => {
+    return axios({
+        method: 'get',
+        url: BASE_URL + "/pokemon/search?name=" + search,
+    })
+}

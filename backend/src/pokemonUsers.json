@@ -2,7 +2,7 @@
   {
     "id": "1723737789885",
     "ownerName": "Vishu",
-    "noOfPokemon": "1",
+    "noOfPokemon": 5,
     "pokemons": [
       {
         "pokemonName": "bulbasaur",
@@ -10,6 +10,38 @@
         "initialPositionX": "11",
         "initialPositionY": "21",
         "speed": "31",
+        "direction": "east"
+      },
+      {
+        "pokemonName": "charizard",
+        "pokemonAbility": "solar-power",
+        "initialPositionX": "25",
+        "initialPositionY": "98",
+        "speed": "40",
+        "direction": "west"
+      },
+      {
+        "pokemonName": "venusaur",
+        "pokemonAbility": "chlorophyll",
+        "initialPositionX": "1",
+        "initialPositionY": "1",
+        "speed": "100",
+        "direction": "north"
+      },
+      {
+        "pokemonName": "charmander",
+        "pokemonAbility": "blaze",
+        "initialPositionX": "23",
+        "initialPositionY": "43",
+        "speed": "56",
+        "direction": "south"
+      },
+      {
+        "pokemonName": "deoxys-attack",
+        "pokemonAbility": "pressure",
+        "initialPositionX": "20",
+        "initialPositionY": "40",
+        "speed": "80",
         "direction": "east"
       }
     ]
@@ -34,21 +66,6 @@
         "initialPositionY": "5",
         "speed": "9",
         "direction": "south"
-      }
-    ]
-  },
-  {
-    "id": "1723900488446",
-    "ownerName": "adi",
-    "noOfPokemon": "1",
-    "pokemons": [
-      {
-        "pokemonName": "eevee",
-        "pokemonAbility": "adaptability",
-        "initialPositionX": "10",
-        "initialPositionY": "2",
-        "speed": "1",
-        "direction": "east"
       }
     ]
   },
@@ -95,6 +112,29 @@
         "initialPositionY": "2",
         "speed": "3",
         "direction": "east"
+      }
+    ]
+  },
+  {
+    "id": "1724778492654",
+    "ownerName": "Choti",
+    "noOfPokemon": 2,
+    "pokemons": [
+      {
+        "pokemonName": "scyther",
+        "pokemonAbility": "steadfast",
+        "initialPositionX": 85,
+        "initialPositionY": 64,
+        "speed": 48,
+        "direction": "south"
+      },
+      {
+        "pokemonName": "pikachu",
+        "pokemonAbility": "lightning-rod",
+        "initialPositionX": "50",
+        "initialPositionY": "40",
+        "speed": "10",
+        "direction": "north"
       }
     ]
   }

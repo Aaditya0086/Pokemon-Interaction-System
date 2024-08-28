@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { getUsers } from "../services/user";
 import { useNavigate } from "react-router-dom";
+import { getPokemonDetails } from "../services/pokemon";
 
 const HomePageForm = () => {
   const [usersList, setUsersList] = useState([]);
@@ -17,11 +18,14 @@ const HomePageForm = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isFlee, setIsFlee] = useState(true);
   const [pokemonGo, setPokemonGo] = useState(false);
+  const [selectedPokemonId, setSelectedPokemonId] = useState(null);
 
   const BOX_SIZE_X = 1100;
   const BOX_SIZE_Y = 400;
   let movementIntervalRef = useRef(null);
   const navigate = useNavigate();
+  let gif_url = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${selectedPokemonId}.gif` ;
+  let img_url = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${selectedPokemonId}.png`;
 
   useEffect(() => {
     fetchPokemonUsersList().then((response) => {
@@ -32,8 +36,21 @@ const HomePageForm = () => {
       } else {
         setUsersList(response.data);
       }
+    }).catch((error) => {
+        console.error("Error fetching users", error);
     });
   }, []);
+
+  useEffect(() => {
+    if (ifPokemonSelected) {
+        fetchPokemonId(pokemonName).then((response) => {
+            console.log(response);
+            setSelectedPokemonId(response);
+        }).catch((error) => {
+            console.error("Error fetching pokemon id", error);
+        })
+    }
+  }, [ifPokemonSelected, pokemonName]);
 
   //   useEffect(() => {
   //     console.log(selectedUser);
@@ -42,18 +59,26 @@ const HomePageForm = () => {
   //     console.log(pokemonIndex);
   //   }, [selectedUser, userIndex, pokemonIndex]);
 
-  const fetchPokemonUsersList = useCallback(async () => {
+  const fetchPokemonUsersList = async () => { //useCallback removed as a small fun. and not being used as dependency or being passed as prop to child.
     try {
       const response = await getUsers();
       return response;
     } catch (err) {
       console.error("Failed to fetch Pokemon Users List", err);
     }
-  });
+  };
+
+  const fetchPokemonId = async (pokemonName) => {
+    try {
+        const response = await getPokemonDetails(pokemonName);
+        return response.data.id;
+    }catch (err) {
+        console.error("Failed to fetch Pokemon Id", err);
+    }
+  };
 
   const updatePosition = () => {
     setPositionX((prevX) => {
-      //   debugger;
       let newX = prevX;
       console.log(speed);
       switch (direction) {
@@ -66,7 +91,7 @@ const HomePageForm = () => {
         default:
           break;
       }
-      if (newX < 0 || newX > BOX_SIZE_X) {
+      if (newX < -85 || newX > BOX_SIZE_X) {
         setIsVisible(false);
         clearInterval(movementIntervalRef.current);
         setPokemonGo(false);
@@ -89,7 +114,7 @@ const HomePageForm = () => {
         default:
           break;
       }
-      if (newY < 0 || newY > BOX_SIZE_Y) {
+      if (newY < -85 || newY > BOX_SIZE_Y) {
         setIsVisible(false);
         clearInterval(movementIntervalRef.current);
         setPokemonGo(false);
@@ -100,30 +125,26 @@ const HomePageForm = () => {
   };
 
   const handlePokemonGoBtn = (id) => {
-    // Implement Pokemon Go logic
     console.log("Pokemon Go of user with id: ", id);
     alert("Pokemon will start moving");
     // setPokemonGo(true);
     if (ifPokemonSelected && !pokemonGo) {
-      movementIntervalRef.current = setInterval(updatePosition, 100);
+      movementIntervalRef.current = setInterval(updatePosition, 10);
       setPokemonGo(true);
     }
   };
 
   const handlePokemonFleeBtn = (id) => {
-    // Implement Pokemon Flee logic
     console.log("Pokemon Flee of user with id: ", id);
     alert("Pokemon will disappear and appear when clicked");
     setIsFlee(!isFlee);
   };
 
   const handlePokemonCeaseBtn = (id) => {
-    // Implement Pokemon Cease logic
     console.log("Pokemon Cease of user with id: ", id);
     alert("Pokemon will stop moving");
     clearInterval(movementIntervalRef.current);
     setPokemonGo(false);
-    // movementInterval = clearInterval(updatePosition, 1000);
   };
 
   return (
@@ -141,7 +162,6 @@ const HomePageForm = () => {
           }
           setIfPokemonSelected(false);
           setIsVisible(false);
-          //   setPokemonIndex(0);
         }}
       >
         <option key="0" value="">
@@ -170,14 +190,14 @@ const HomePageForm = () => {
                 <select
                   onChange={(e) => {
                     setIsVisible(false);
-                    setPokemonName(e.target.value);
-                    setPokemonIndex(e.target.selectedIndex);
                     clearInterval(movementIntervalRef.current);
                     setPokemonGo(false);
                     if (e.target.selectedIndex === 0) {
-                      setIfPokemonSelected(false);
+                        setIfPokemonSelected(false);
                     } else {
+                      setPokemonName(e.target.value);
                       setIfPokemonSelected(true);
+                      setPokemonIndex(e.target.selectedIndex);
                       setPositionX(Number(
                         BOX_SIZE_X / 2 +
                           Number(usersList[userIndex - 1].pokemons[
@@ -198,7 +218,7 @@ const HomePageForm = () => {
                       setSpeed(Number(
                         usersList[userIndex - 1].pokemons[
                           e.target.selectedIndex - 1
-                        ].speed / 10
+                        ].speed / 100
                       ));
                       setIsVisible(true);
                     }
@@ -272,14 +292,15 @@ const HomePageForm = () => {
           <div
             style={{
               borderRadius: "50%",
-              backgroundColor: "yellow",
               width: "10px",
               height: "10px",
               position: "absolute",
               left: `${positionX}px`,
               top: `${positionY}px`,
             }}
-          ></div>
+          >
+            <img src={gif_url} alt={img_url} />
+          </div>
         )}
       </div>
       <div style={{display: 'flex', justifyContent: 'flex-end', margin: '40px'}}>
